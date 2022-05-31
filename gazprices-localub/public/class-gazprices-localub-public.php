@@ -20,7 +20,7 @@
  * @subpackage Gazprices_localub/public
  * @author     Your Name <email@example.com>
  */
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/gazprices-localub-public-display.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/gazprices-localub-public-display.php';
 
 class Gazprices_localub_Public {
 
