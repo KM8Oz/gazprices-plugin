@@ -96,7 +96,6 @@ class Gazprices_localub_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		add_action( 'widgets_init', 'register_Gazprices_widget' );
 		wp_enqueue_script( $this->Gazprices_localub, plugin_dir_url( __FILE__ ) . 'js/gazprices-localub-public.js', array( 'jquery' ), $this->version, false );
 
 	}

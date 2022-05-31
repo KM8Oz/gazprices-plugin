@@ -161,19 +161,24 @@ $default_data = array (
       'prices_path' => '/submit/?station=',
     ),
 );
+
 class Gazprices_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
 	 */
-	function __construct() {
-		parent::__construct(
-			'gazprices_widget', // Base ID
-			__( 'gazprices widget', 'Gazprices' ), // Name
-			array( 'description' => __( 'Show gazprices widget with React', 'Gazprices' ), ) // Args
-		);
+	// function __construct() {
+	// 	parent::__construct(
+	// 		'gazprices_widget', // Base ID
+	// 		__( 'gazprices widget', 'Gazprices' ), // Name
+	// 		array( 'description' => __( 'Show gazprices widget with React', 'Gazprices' ), ) // Args
+	// 	);
+	// }
+	public function __construct() {
+		$widget_ops = array('classname' => 'gazprices_widget_entries', 'description' => esc_html__( "Show gazprices widget with React", 'transcargo') );
+		parent::__construct('gazprices_widget', esc_html__('Gazprices widget', 'transcargo'), $widget_ops);
+		$this->alt_option_name = 'gazprices_widget_entries';
 	}
-
 	/**
 	 * Front-end display of widget.
 	 *
@@ -230,6 +235,7 @@ class Gazprices_Widget extends WP_Widget {
 	}
 
 }  
-function register_Gazprices_widget() {
-    register_widget( 'Gazprices_Widget' );
+function register_recent_widget() {
+	register_widget( 'Gazprices_Widget' );
 }
+add_action( 'widgets_init', 'register_recent_widget' );
