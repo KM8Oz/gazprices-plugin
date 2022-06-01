@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              http://kmoz.dev
- * @since             1.0.0
+ * @since             1.0.13
  * @package           Gazprices_localub
  *
  * @wordpress-plugin
  * Plugin Name:       gazprices-localub
  * Plugin URI:        http://kmoz.dev/gazprices-localub/
  * Description:       gazprices widget with cutom api panel.
- * Version:           1.0.0
+ * Version:           1.0.13
  * Author:            dup inc
  * Author URI:        http://kmoz.dev/
  * License:           GPL-2.0+
@@ -74,9 +74,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-gazprices-localub.php';
  * @since    1.0.0
  */
 function run_Gazprices_localub() {
-
 	$plugin = new Gazprices_localub();
 	$plugin->run();
-
 }
 run_Gazprices_localub();

@@ -96,8 +96,10 @@ class Gazprices_localub_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( $this->Gazprices_localub, plugin_dir_url( __FILE__ ) . 'js/gazprices-localub-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( "react", plugin_dir_url( __FILE__ ) . 'js/react.min.js', array(), $this->version, false );
+		wp_enqueue_script( "react-dom", plugin_dir_url( __FILE__ ) . 'js/react-dom.min.js', array(), $this->version, false );
+		wp_enqueue_script( "gazprices-umd", plugin_dir_url( __FILE__ ) . 'js/gazprices-umd.min.js', array(), $this->version, false );
+		wp_enqueue_script( $this->Gazprices_localub, plugin_dir_url( __FILE__ ) . 'js/gazprices-localub-public.js', array("react", "react-dom", "gazprices-umd", 'jquery'), $this->version, false );
 	}
 
 }

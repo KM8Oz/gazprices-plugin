@@ -1,7 +1,26 @@
 <?php
 
 // ...
-$default_data = array (
+
+
+class Gazprices_Widget extends WP_Widget {
+
+	/**
+	 * Register widget with WordPress.
+	 */
+	// function __construct() {
+	// 	parent::__construct(
+	// 		'gazprices_widget', // Base ID
+	// 		__( 'gazprices widget', 'Gazprices' ), // Name
+	// 		array( 'description' => __( 'Show gazprices widget with React', 'Gazprices' ), ) // Args
+	// 	);
+	// }
+	public function __construct() {
+		$widget_ops = array('classname' => 'gazprices_widget_entries', 'description' => esc_html__( "Show gazprices widget with React", 'transcargo') );
+		parent::__construct('gazprices_widget', esc_html__('Gazprices widget', 'transcargo'), $widget_ops);
+		$this->alt_option_name = 'gazprices_widget_entries';
+		$this->string_demo = "{\"cities\":[\"Agadir\",\"Agdz\",\"Agouim\",\"Aguelmouss\",\"AinAouda\",\"AinAttiq\",\"AinHarrouda\",\"AinJouhra\",\"AitBaha\",\"AitIazza\",\"AitMelloul\",\"AitOurir\",\"Ajdir\",\"AlHoceima\",\"Amskroud\",\"Attaouia\",\"Azemmour\",\"Azrou\",\"Bejaad\",\"Belfaa\",\"BenAhmed\",\"BenGuerir\",\"BenSlimane\",\"BeniHadifa\",\"BeniMellal\",\"BeniNsar\",\"Benslimane\",\"Berkane\",\"Berrechid\",\"Boufakrane\",\"Boujniba\",\"Boumalne\",\"Boumia\",\"Bouskoura\",\"Bouznika\",\"Casablanca\",\"Chefchaouen\",\"Chichaoua\",\"CrochetBlanco\",\"DjemaaSahim\",\"Dlalha\",\"DouarOuledGhadbane\",\"Driouch\",\"ElAioun\",\"ElHajeb\",\"ElJadida\",\"ElKalaaDEsraghna\",\"ElMenzel\",\"Erfoud\",\"Errachidia\",\"Essaouira\",\"Fès\",\"FkihBensalah\",\"Ghafsai\",\"Goulmime\",\"Guercif\",\"HadHrara\",\"HadSoualem\",\"Idelssane\",\"Ikaoune\",\"Immouzer\",\"Imzouren\",\"Inchaden\",\"Inzegane\",\"KaaSrass\",\"KalaaMegouna\",\"KasbaTadla\",\"Kenetra\",\"Kenitra\",\"Khemisset\",\"Khenifra\",\"Khouribga\",\"Kleaa\",\"KsarElKebir\",\"Ksiba\",\"Laaouamra\",\"Larache\",\"MachraaBelKsiri\",\"Marrakech\",\"Martil\",\"Mediouna\",\"Meknès\",\"Meloussa\",\"Midelt\",\"Missour\",\"Mjaara\",\"Mohammedia\",\"MontElAroui\",\"Mrirt\",\"Mzouda\",\"Nador\",\"Nouasseur\",\"Oualidia\",\"Ouarzazate\",\"Ouazzane\",\"OuedAmlil\",\"OuedZem\",\"Oujda\",\"OuledJelloul\",\"OuledMbarek\",\"OuledTaima\",\"Rabat\",\"Rich\",\"Safi\",\"Saidia\",\"SalaAlJadida\",\"Sale\",\"SebtGzoula\",\"Sefrou\",\"Settat\",\"SidiAllalBahraoui\",\"SidiAssal\",\"SidiAyache\",\"SidiBennour\",\"SidiBibi\",\"SidiKacem\",\"SidiSlimane\",\"SidiSmail\",\"SidiTiji\",\"SidiZouine\",\"SoukElArbaa\",\"SoukLarbaa\",\"Tamansourt\",\"Tamelalt\",\"Tamsamane\",\"Tanant\",\"Tanger\",\"Taourirt\",\"Targuist\",\"Taroudant\",\"Tata\",\"Taza\",\"Taznakht\",\"Temara\",\"Tetouan\",\"Tikiouine\",\"Tinghir\",\"Tinjdad\",\"Tinzouline\",\"Tiznit\",\"TletLouled\",\"TnineGhiat\",\"TnineOurika\",\"Youssoufia\",\"Zagora\",\"Zaio\",\"Zemamra\"],\"default_city\":\"0\",\"proxy\":\"https://thingproxy.freeboard.io/fetch/\",\"api\":{\"base\":\"https://total.smarteez.eu\",\"stations_path\":\"/submit/?ville=\",\"prices_path\":\"/submit/?station=\"}}";
+		$this->default_data = array (
     'cities' => 
     array (
       0 => 'Agadir',
@@ -161,24 +180,8 @@ $default_data = array (
       'prices_path' => '/submit/?station=',
     ),
 );
-
-class Gazprices_Widget extends WP_Widget {
-
-	/**
-	 * Register widget with WordPress.
-	 */
-	// function __construct() {
-	// 	parent::__construct(
-	// 		'gazprices_widget', // Base ID
-	// 		__( 'gazprices widget', 'Gazprices' ), // Name
-	// 		array( 'description' => __( 'Show gazprices widget with React', 'Gazprices' ), ) // Args
-	// 	);
-	// }
-	public function __construct() {
-		$widget_ops = array('classname' => 'gazprices_widget_entries', 'description' => esc_html__( "Show gazprices widget with React", 'transcargo') );
-		parent::__construct('gazprices_widget', esc_html__('Gazprices widget', 'transcargo'), $widget_ops);
-		$this->alt_option_name = 'gazprices_widget_entries';
 	}
+
 	/**
 	 * Front-end display of widget.
 	 *
@@ -193,8 +196,14 @@ class Gazprices_Widget extends WP_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
 	 
-	 
-			echo '<div id="gazprices" config='.json_encode($default_data).'></div>';
+// 	 		$data = json_encode($this->default_data);
+// 				$pos = strpos($data,'"');
+// 				if ($pos !== false) {
+// 			    $data_str = substr($data,0,$pos+1) . str_replace('"','\\"',substr($data,$pos+1));
+// 				}
+			?>
+          <div id="gazprices" config="<?php echo htmlspecialchars(json_encode($this->default_data), ENT_QUOTES, 'UTF-8'); ?>"></div>
+         <?php
 	 
 		
 		echo $args['after_widget'];
